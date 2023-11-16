@@ -1,26 +1,22 @@
 from collections import defaultdict
 
+logs = [["08:00:13 From Alex Johnson: hello to everyone"],
+        ["08:00:21 From Emily Smith: hello"],
+        ["08:00:29 From Chris Brown: hello"],
+        ["08:00:34 From Chris Brown: hi again everyone!"]]
 
-def grade_participation(chat_logs):
-    # Create a dictionary to store the participation count for each student
-    participation_count = defaultdict(int)
+chatlog = defaultdict(list)
 
-    # Iterate through each chat entry
-    for entry in chat_logs:
-        student = entry['student']  # Assuming each chat entry has a 'student' field
-        participation_count[student] += 1
+for line in logs:
+    chatlog[line[0].split(" ")[2] + " " + line[0].split(" ")[3].strip(":")].append(
+        line[0].split(" ")[0] + line[0].split(":")[3])
 
-    # Display the participation count for each student
-    for student, count in participation_count.items():
-        print(f"{student} participated {count} times.")
+name = input("Enter Name To Search\n")
+message = []
 
+for key, value in chatlog.items():
+    if name.casefold() == str(key).casefold():
+        message = value
 
-# Example usage
-chat_logs = [
-    {'student': 'Alice', 'message': '...'},
-    {'student': 'Bob', 'message': '...'},
-    {'student': 'Alice', 'message': '...'},
-    # ... more chat entries
-]
-
-grade_participation(chat_logs)
+for x, y in enumerate(message):
+    print("[" + str(x+1) + "] " + y)
