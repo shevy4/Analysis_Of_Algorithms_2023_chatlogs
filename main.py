@@ -22,6 +22,7 @@ def parse_chat():
     for line in logs:
         chatlog[line[0].split(" ")[2].casefold() + " " + line[0].split(" ")[3].casefold().strip(":")].append(
             line[0].split(" ")[0] + line[0].split(":")[3])
+    print(chatlog)
 
 
 # Simple loading bar for aesthetics
@@ -32,7 +33,6 @@ def loading_animation(length):
 
 # This function displays the student name, number of messages and the message sent
 def display_chats(name):
-    parse_chat()
     if name.casefold() == "exit":
         exit(0)
 
@@ -40,6 +40,7 @@ def display_chats(name):
     data = []
     # Iterates chat-log using O(n) complexity
     for key, value in chatlog.items():
+        print(key)
         if name.casefold() == str(key).casefold():
             message = value
             break
@@ -57,9 +58,9 @@ def display_chats(name):
     data.append(["Participation Grade : "] + [str(parse_grade(name))])
     tb.banner("Student Name : " + name, 1)
     tb.table(data, headers)
-    chatlog.clear()
 
 
 if __name__ == '__main__':
+    parse_chat()
     while True:
         display_chats(input("Enter Name To Search or 'exit' to exit\n"))
