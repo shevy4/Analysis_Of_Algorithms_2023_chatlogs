@@ -22,7 +22,6 @@ def parse_chat():
     for line in logs:
         chatlog[line[0].split(" ")[2].casefold() + " " + line[0].split(" ")[3].casefold().strip(":")].append(
             line[0].split(" ")[0] + line[0].split(":")[3])
-    print(chatlog)
 
 
 # Simple loading bar for aesthetics
@@ -40,7 +39,6 @@ def display_chats(name):
     data = []
     # Iterates chat-log using O(n) complexity
     for key, value in chatlog.items():
-        print(key)
         if name.casefold() == str(key).casefold():
             message = value
             break
@@ -55,7 +53,10 @@ def display_chats(name):
     for x, y in enumerate(message):
         data.append(["[" + str(x + 1) + "]"] + [y])
     loading_animation(len(logs))
-    data.append(["Participation Grade : "] + [str(parse_grade(name))])
+    if str(message).split(" ")[1].replace("'", "").replace("]", "") == "":
+        data.append(["Participation Grade : "] + [0])
+    else:
+        data.append(["Participation Grade : "] + [str(parse_grade(name))])
     tb.banner("Student Name : " + name, 1)
     tb.table(data, headers)
 
