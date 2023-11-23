@@ -40,12 +40,12 @@ def display_chats(name):
     # Iterates chat-log using O(n) complexity
     for key, value in chatlog.items():
         if name.casefold() == str(key).casefold():
+            print("PING")
             message = value
             break
     # If the message length is 0 then student name is not found in chat
     if len(message) == 0:
         print("Invalid Name, Not Found")
-        chatlog.clear()
         return
 
     # Displays student info in a table
@@ -59,6 +59,7 @@ def display_chats(name):
         data.append(["Participation Grade : "] + [str(parse_grade(name))])
     tb.banner("Student Name : " + name, 1)
     tb.table(data, headers)
+    return
 
 
 if __name__ == '__main__':
