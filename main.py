@@ -2,11 +2,23 @@ from collections import defaultdict
 import tableprint as tb
 import tqdm
 from time import sleep
+import random
+from faker import Faker
 
-logs = [["08:00:13 From Jack Johnson: hello to everyone"],
-        ["08:00:21 From Emily Smith: hello"],
-        ["08:00:29 From Chris Brown: hello"],
-        ["08:00:34 From Chris Brown: hi again everyone!"]]
+logs = []
+
+
+def generate_Logs():
+    fake = Faker()
+
+    # Generate 100 random entries
+    for _ in range(100):
+        timestamp = fake.time()
+        sender = fake.name()
+        message = fake.sentence()
+        entry = [f"{timestamp} From {sender}: {message}"]
+        logs.append(entry)
+
 
 # Init of default dictionary, this handles key errors arising from a normal dictionary
 chatlog = defaultdict(list)
@@ -14,7 +26,7 @@ chatlog = defaultdict(list)
 
 # This Function returns the average frequency of messages sent by a particular student
 def parse_grade(name):
-    return str((len(chatlog.get(name.casefold())) / len(logs)) * 100) + "%"
+    return str(((len(chatlog.get(name.casefold())) / len(logs)) * 100).__ceil__()) + "%"
 
 
 # This function splits the chat-log in reorganizes it by indexing
@@ -27,7 +39,7 @@ def parse_chat():
 # Simple loading bar for aesthetics
 def loading_animation(length):
     for _ in tqdm.tqdm(range(length), desc="Grading..."):
-        sleep(.5)
+        sleep(1 / length)
 
 
 # This function displays the student name, number of messages and the message sent
@@ -40,7 +52,6 @@ def display_chats(name):
     # Iterates chat-log using O(n) complexity
     for key, value in chatlog.items():
         if name.casefold() == str(key).casefold():
-            print("PING")
             message = value
             break
     # If the message length is 0 then student name is not found in chat
@@ -63,6 +74,8 @@ def display_chats(name):
 
 
 if __name__ == '__main__':
+    generate_Logs()
     parse_chat()
+    print(logs)
     while True:
         display_chats(input("Enter Name To Search or 'exit' to exit\n"))
