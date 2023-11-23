@@ -40,7 +40,6 @@ def display_chats(name):
     # Iterates chat-log using O(n) complexity
     for key, value in chatlog.items():
         if name.casefold() == str(key).casefold():
-            print("PING")
             message = value
             break
     # If the message length is 0 then student name is not found in chat
