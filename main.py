@@ -55,7 +55,7 @@ def display_chats(name):
     if str(message).split(" ")[1].replace("'", "").replace("]", "") == "":
         data.append(["Participation Grade : "] + [0])
     else:
-        data.append(["Participation Grade : "] + [str(parse_grade(name))])
+        data.append(["Participation Grade : "] + [str(len(message) * .2) + "%"])
     tb.banner("Student Name : " + name, 1)
     tb.table(data, headers)
     return
