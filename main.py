@@ -3,10 +3,10 @@ import tableprint as tb
 import tqdm
 from time import sleep
 
-logs = [["08:00:13 From Jack Johnson: hello to everyone"],
-        ["08:00:21 From Emily Smith: hello"],
-        ["08:00:29 From Chris Brown: hello"],
-        ["08:00:34 From Chris Brown: hi again everyone!"]]
+logs = [["08:00:13 From Jack Johnson: sir i think O(n^2)"],
+        ["08:00:21 From Emily Smith: possible O(n)"],
+        ["08:00:29 From Chris Brown: sir, O(n^2)"],
+        ["08:00:34 From Chris Brown: Time complexity is polynomial also"]]
 
 # Init of default dictionary, this handles key errors arising from a normal dictionary
 chatlog = defaultdict(list)
@@ -40,7 +40,6 @@ def display_chats(name):
     # Iterates chat-log using O(n) complexity
     for key, value in chatlog.items():
         if name.casefold() == str(key).casefold():
-            print("PING")
             message = value
             break
     # If the message length is 0 then student name is not found in chat
